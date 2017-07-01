@@ -1,0 +1,69 @@
+﻿@using ShopAround.Common;
+@model IEnumerable<ShopAround.Models.Entities.nn_product>
+@{
+    ViewBag.Title = "Cart";
+    var viewDataProduct = ViewData[CommonConstants.CART_SESSION] as List<ShopAround.Models.UserModel>;
+}
+
+<h1 style="text-align:justify;" class="article-title">Your Cart</h1>
+
+<table class="table" border="1">
+    <tr>
+        <th>
+            STT
+        </th>
+        <th>
+            Mã sản phẩm
+        </th>
+        <th>
+            Tên sản phẩm
+        </th>
+        <th>
+            Số lượng
+        </th>
+        <th>
+            Giá cả ($)
+        </th>
+        <th>
+            Thành tiền
+        </th>
+        <th></th>
+    </tr>
+    @if (viewDataProduct != null)
+    {
+        int i = 1;
+        foreach (var item in viewDataProduct)
+        {
+            int num = item.number;
+            decimal price = item.product.price;
+            decimal total = num * price;
+            <tr>
+                <td>
+                    @i
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.product.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.product.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.product.price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => total)
+                </td>
+                <td>
+                    <button type="button">Hủy</button>
+                </td>
+            </tr>
+            i++;
+        }
+    }
+
+</table>
+
+

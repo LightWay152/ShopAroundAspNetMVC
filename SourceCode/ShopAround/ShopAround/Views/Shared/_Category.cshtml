@@ -1,0 +1,10 @@
+﻿@model List<ShopAround.Models.Entities.nn_category>
+<h2>Categories <span></span></h2>
+<div class="box-content">
+    <ul>
+        @foreach(var item in Model)
+        {
+            <li>@Html.ActionLink(@item.name, "_CategoryProduct", "Home",new { id=@item.id},null)</li>;
+        }
+    </ul>
+</div>

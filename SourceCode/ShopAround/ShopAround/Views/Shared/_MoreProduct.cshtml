@@ -1,0 +1,29 @@
+﻿@model List<ShopAround.Models.Entities.nn_product>
+<div class="more-products">
+    <div class="more-products-holder">
+        <ul>
+            @for (int i = 1; i <= @Model.Count(); i++)
+            {
+                var tmp = "";
+                if (i % @Model.Count() != 0) //&& i%8==0)
+                {
+                    tmp += "<li>";
+                    tmp += "<a href='#'><img src='/css/images/" + Model[i - 1].small_img_url + "' alt=''/></a>";
+                    tmp += "</li>";
+
+                    @Html.Raw(tmp);
+                }
+                else//i%@Model.Count()==0
+                {
+                    tmp += "<li class='last'>";
+                    tmp += "<a href='#'><img src='/css/images/" + Model[i - 1].small_img_url + "' alt=''/></a>";
+                    tmp += "</li>";
+
+                    @Html.Raw(tmp);
+                }
+            }
+        </ul>
+    </div>
+    <div class="more-nav"> <a href="#" class="prev">previous</a> <a href="#" class="next">next</a> </div>
+</div>
+

@@ -1,0 +1,75 @@
+﻿@model List<ShopAround.Models.Entities.nn_product>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<!-- Content Slider -->
+<div id="slider" class="box">
+    <div id="slider-holder">
+        <ul>
+            <li><a href="#"><img src="css/images/slider/slide1.jpg" alt="" /></a></li>
+            <li><a href="#"><img src="css/images/slider/slider2.jpg" alt="" /></a></li>
+            <li><a href="#"><img src="css/images/slider/slider3.jpg" alt="" /></a></li>
+            <li><a href="#"><img src="css/images/slider/slider4.jpg" alt="" /></a></li>
+        </ul>
+    </div>
+    <div id="slider-nav"> <a href="#" class="active">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> </div>
+</div>
+<!-- End Content Slider -->
+<!-- Products -->
+<div class="products">
+    <div class="cl">&nbsp;</div>
+    <ul>
+        @for (int i = 1; i <= 3; i++)
+        {
+            var tmp = "";
+            if (i % 3 != 0)
+            {
+                tmp += "<li>";
+                tmp += "<a href='#'><img src='css/images/" + Model[i - 1].big_img_url + "' alt=''/></a>";
+                tmp += "<div class='product-info'>";
+                tmp += "<h3>" + Html.ActionLink(Model[i - 1].name, "nn_product", new { id = Model[i - 1].id }, null) + "</h3>";
+                tmp += "<div class='product-desc'>";
+                tmp += "<p>" + Model[i - 1].description + "</p>";
+                tmp += " <strong class='price'>" + "$ " + Model[i - 1].price + "</strong></br>";
+                tmp += "<a onClick='addToCart(" + Model[i - 1].id + ");'><img src='/css/images/cart-link.gif'/> Add to Cart</a>";
+                tmp += "</div>";
+                tmp += "</div>";
+                tmp += "</li>";
+
+                @Html.Raw(tmp);
+
+            }
+            else//i%3==0
+            {
+                tmp += "<li class='last'>";
+                tmp += "<a href='#'><img src='css/images/" + Model[i - 1].big_img_url + "' alt=''/></a>";
+                tmp += "<div class='product-info'>";
+                tmp += "<h3>" + Html.ActionLink(Model[i - 1].name, "nn_product", new { id = Model[i - 1].id }, null) + "</h3>";
+                tmp += "<div class='product-desc'>";
+                tmp += "<p>" + Model[i - 1].description + "</p>";
+                tmp += " <strong class='price'>" + "$ " + Model[i - 1].price + "</strong></br>";
+                tmp += "<a onClick='addToCart(" + Model[i - 1].id + ");'><img src='/css/images/cart-link.gif'/> Add to Cart</a>";
+                tmp += "</div>";
+                tmp += "</div>";
+                tmp += "</li>";
+
+                @Html.Raw(tmp);
+            }
+
+        }
+    </ul>
+    <div class="cl">&nbsp;</div>
+</div>
+<!-- End Products -->
+
+<script>
+    function addToCart(id)
+    {
+        $.post("/Cart/AddProductToCart", { product: id }, function() {
+            alert( "success" );
+        });
+    }
+</script>
+
+
